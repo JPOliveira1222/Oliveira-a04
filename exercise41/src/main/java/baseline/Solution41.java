@@ -10,67 +10,64 @@ import java.io.*;
 
 
 public class Solution41 {
-
-/*
-        Define the name sorter
-        read from a scanner and put into array list
-        add the names scanned to the list of names
-
-        print the names in the files
-        Create a file writing function for output
-
-        write out header and output how many names there are in the file
-
-        write the name of the files after the header a separator
-        close out the file writing function
-
-
-        create a scanner object that will read from input file
-        declare arraylist for storing names
-        read names from the input file by calling the function that reads names
-        using the sort function sort the list of names
-        close the scanner object
-
-        write out the names
-        have an exception in case of an error.
-     */
+    
+    //defining class sortName
 public static class sortName{
+
+    //defining readNames function to read data from scanner object
     public static void readNames(Scanner input, ArrayList<String> names){
+
+        ////reading data until an empty line
         while(input.hasNextLine())
         {
+            //adding the read line to the list of names
             names.add(input.nextLine());
 
         }
     }
 }
-
+    //defining function to print out names in the file
     public static void outputName(ArrayList<String> names) throws IOException{
+
+        //creating file writer to output new list of names
         FileWriter output = new FileWriter("exercise41_output.txt");
 
+        //writing header
         output.write("Total of " +names.size()+ "names\n");
         output.write("-----------------------------\n");
 
+        //writing names after the header and separator
         for(String i: names){
             output.write(i+"\n");
         }
+        //closing to avoid memory leak
         output.close();
     }
 
     public static void main(String[] args) throws FileNotFoundException{
 
+        //creating scanner object to read from input file
         Scanner nameInput = new Scanner(new File("exercise41_input.txt"));
 
+        //declaring array list to store the names
         ArrayList<String> names = new ArrayList<>();
+
+        //reading the names from the input file by calling the name reading function
         sortName.readNames (nameInput, names);
 
+        //sorting the names
         names.sort(String.CASE_INSENSITIVE_ORDER);
 
+        //closing the scanner
         nameInput.close();
 
+        //writing to the output file
         try{
             outputName(names);
 
         }
+
+        //if there is an exception, write to the console while creating output file
         catch (Exception e)
         {
             System.out.println(e);
